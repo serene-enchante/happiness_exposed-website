@@ -195,7 +195,7 @@ img {
 
 .hero-slideshow-nav {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   right: 40px;
   z-index: 3;
   display: flex;
@@ -259,7 +259,7 @@ img {
   }
 }
 
-.hero-base > div {
+.hero-content-inner {
   max-width: var(--max-width);
   width: 100%;
   margin: 0 auto;

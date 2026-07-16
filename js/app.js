@@ -123,7 +123,7 @@ const buildHeroSection = ({
     hero.style.backgroundImage = `linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0.95) 100%), url('${normalizedUrl}')`;
   }
   hero.innerHTML = `
-    <div class="${alignEnd ? "article-hero-inner" : ""}">
+    <div class="hero-content-inner ${alignEnd ? "article-hero-inner" : ""}">
       ${metaTop ? `<div class="article-meta-top">${metaTop}</div>` : ""}
       <h1>${title}</h1>
       ${subtitle ? `<p class="hero-subtitle">${subtitle}</p>` : ""}
