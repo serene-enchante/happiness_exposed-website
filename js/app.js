@@ -435,6 +435,45 @@ const renderContact = () => {
       <button class="button button-dark" type="submit"><span>Send message</span></button>
     </form>
   `;
+
+  const form = section.querySelector(".contact-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const button = form.querySelector("button");
+    const buttonSpan = button.querySelector("span");
+    const originalText = buttonSpan.innerHTML;
+
+    button.disabled = true;
+    buttonSpan.innerHTML = "Sending...";
+
+    const formData = new FormData(form);
+    formData.append("access_key", "b90be0c8-eb8c-4a3f-ac54-1eb362d93cba");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (response.status === 200 && result.success) {
+        form.innerHTML = `
+          <div class="form-status success" style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease;">
+            <div style="font-size: 3rem; margin-bottom: 20px; color: var(--od-yellow);">✓</div>
+            <h3 style="font-family: 'Kingthings', serif; font-size: 1.8rem; color: var(--od-white); margin-bottom: 12px;">Message Sent!</h3>
+            <p style="color: var(--od-light-grey); line-height: 1.6; max-width: 400px; margin: 0 auto;">Thank you for reaching out. We have received your message and will get back to you shortly.</p>
+          </div>
+        `;
+      } else {
+        throw new Error(result.message || "Something went wrong.");
+      }
+    } catch (error) {
+      button.disabled = false;
+      buttonSpan.innerHTML = originalText;
+      alert(`Error: ${error.message}`);
+    }
+  });
+
   app.appendChild(section);
 };
 
