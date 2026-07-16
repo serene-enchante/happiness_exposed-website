@@ -118,7 +118,7 @@ const buildHeroSection = ({
   hero.className = `section hero-base hero-fold${alignEnd ? " hero-article" : ""}`;
   if (imageUrl) {
     const normalizedUrl = cleanImageUrl(imageUrl);
-    hero.style.backgroundImage = `linear-gradient(120deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('${normalizedUrl}')`;
+    hero.style.backgroundImage = `linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0.95) 100%), url('${normalizedUrl}')`;
   }
   hero.innerHTML = `
     <div class="${alignEnd ? "article-hero-inner" : ""}">

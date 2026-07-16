@@ -149,7 +149,7 @@ img {
   margin-top: -80px;
   --hero-notch: 0%;
   --hero-parallax: 0px;
-  background: linear-gradient(120deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0.95) 100%),
     var(--hero-image, url("../images/bw.jpg")) center/cover no-repeat;
   background-position: center calc(50% + var(--hero-parallax));
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
@@ -397,7 +397,7 @@ img {
 }
 
 .hero-article .hero-subtitle {
-  color: var(--od-light-grey);
+  color: var(--od-white);
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   margin-top: 0;
   margin-bottom: 20px;
@@ -406,7 +406,7 @@ img {
 }
 
 .article-meta {
-  color: var(--od-light-grey);
+  color: var(--od-white);
   display: flex;
   align-items: center;
   justify-content: space-between;
