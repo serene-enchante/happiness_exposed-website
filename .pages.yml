@@ -52,7 +52,7 @@ content:
         required: true
       - name: favicon
         label: Favicon Image
-        type: image
+        type: string
       - name: hero_header
         label: Hero Header Text
         type: string
