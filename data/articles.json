@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-16T10:07:29.690Z",
-  "settings": {},
+  "generated_at": "2026-07-16T10:08:57.329Z",
+  "settings": {
+    "site_title": "One Day",
+    "logo_text": "One Day",
+    "hero_header": "Honor other's passions, honor your own.",
+    "hero_subtitle": "A place to trade stories, celebrate creativity, and preserve the sparks that make us who we are. meow",
+    "body": "Global settings for the One Day site."
+  },
   "articles": [
     {
       "slug": "about-author",
@@ -11,16 +17,6 @@
       "date": "2026-07-16",
       "theme": "Profile",
       "main_image": "images/profilePic.png"
-    },
-    {
-      "slug": "settings",
-      "title": "settings",
-      "header": "settings",
-      "hook": "",
-      "body": "Global settings for the One Day site.",
-      "date": "",
-      "theme": "",
-      "main_image": ""
     },
     {
       "slug": "story-test-new-entry",
@@ -36,7 +32,7 @@
       "slug": "story-monday-mornings",
       "title": "Monday Mornings",
       "header": "Monday Mornings",
-      "hook": "\"A cinematographer's call to honor your interests.\"",
+      "hook": "A cinematographer's call to honor your interests.",
       "body": "## On location\n\nIt is Monday morning. I am on location shooting a documentary on the Pinot Noir artisan wineries in the Willamette Valley of Oregon. I have exciting adventures with my camera and meet the most interesting people wherever I work.\n\n## The question\n\nSo, what do YOU want YOUR Monday mornings to look like?\n\n## Just do it\n\nJust do it. Honor YOUR interests.\n\n- Ben Garvey, Cinematographer\n- Portland, Oregon",
       "date": "2026-05-01",
       "theme": "Purpose",
@@ -46,7 +42,7 @@
       "slug": "story-quiet-mornings",
       "title": "Quiet Mornings",
       "header": "Quiet Mornings",
-      "hook": "\"How dawn rituals became a shelter for creativity.\"",
+      "hook": "How dawn rituals became a shelter for creativity.",
       "body": "## The first light\n\nThere is a small corner of the kitchen where the morning sun rests for ten minutes. In that light, ideas arrive softly and without pressure.\n\n## A cup and a page\n\nThe practice is simple: boil water, pour tea, write three lines. Those lines have turned into chapters, collaborations, and new friendships.\n\n## Carrying it forward\n\nThe ritual is shared now, passed from one storyteller to the next.",
       "date": "2024-10-12",
       "theme": "Rituals",

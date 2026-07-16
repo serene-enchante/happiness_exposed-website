@@ -22,14 +22,31 @@ const parseFrontMatter = (raw) => {
   const body = sections.slice(2).join("---").trim();
   const frontMatter = {};
 
-  frontMatterBlock
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .forEach((line) => {
-      const [key, ...rest] = line.split(":");
-      frontMatter[key.trim()] = rest.join(":").trim();
-    });
+  const lines = frontMatterBlock.split("\n");
+  let lastKey = null;
+
+  lines.forEach((line) => {
+    // If the line starts with spaces or tabs, it is a continuation line
+    if (/^\s+/.test(line)) {
+      if (lastKey) {
+        const cleanedPart = line.trim();
+        frontMatter[lastKey] = (frontMatter[lastKey] + " " + cleanedPart).trim();
+      }
+      return;
+    }
+
+    const trimmed = line.trim();
+    if (!trimmed) return;
+
+    const colonIndex = trimmed.indexOf(":");
+    if (colonIndex !== -1) {
+      const key = trimmed.slice(0, colonIndex).trim();
+      const val = trimmed.slice(colonIndex + 1).trim();
+      const cleanedVal = val.replace(/(^["']|["']$)/g, "");
+      frontMatter[key] = cleanedVal;
+      lastKey = key;
+    }
+  });
 
   return { frontMatter, body };
 };
@@ -61,7 +78,7 @@ const main = () => {
     const slug = slugFromFile(entry.file);
     const type = (frontMatter.type || "article").toLowerCase();
 
-    if (type === "settings") {
+    if (slug === "settings" || type === "settings") {
       settings = { ...frontMatter, body };
       return;
     }
