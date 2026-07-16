@@ -1,0 +1,58 @@
+media:
+  input: images
+  output: /images
+
+content:
+  - name: articles
+    label: Stories / Articles
+    type: collection
+    path: content
+    exclude:
+      - settings.md
+    format: yaml-frontmatter
+    filename: "story-{{title | slugify}}"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: header
+        label: Header Title
+        type: string
+      - name: hook
+        label: Hook / Subtitle
+        type: string
+      - name: date
+        label: Publish Date
+        type: date
+        required: true
+      - name: theme
+        label: Theme / Category
+        type: string
+      - name: main_image
+        label: Main Image
+        type: image
+      - name: body
+        label: Content Body
+        type: rich-text
+
+  - name: settings
+    label: Global Settings
+    type: file
+    path: content/settings.md
+    format: yaml-frontmatter
+    fields:
+      - name: site_title
+        label: Site Title
+        type: string
+        required: true
+      - name: logo_text
+        label: Logo Text
+        type: string
+        required: true
+      - name: about_blurb
+        label: About Blurb
+        type: string
+      - name: body
+        label: Global Settings Footer/Description
+        type: rich-text
