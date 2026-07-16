@@ -147,7 +147,7 @@ img {
 .hero-base {
   position: relative;
   overflow: hidden;
-  min-height: calc(100vh + 80px);
+  min-height: 100vh;
   display: grid;
   align-items: center;
   border-radius: 0;
