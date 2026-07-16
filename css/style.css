@@ -936,3 +936,90 @@ main > .section:first-child .stories-header {
   }
 }
 
+.share-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.share-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.share-modal-card {
+  background: var(--od-dark-grey);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px 32px;
+  width: 90%;
+  max-width: 380px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.share-modal-overlay.active .share-modal-card {
+  transform: scale(1);
+}
+
+.share-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--od-light-grey);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.share-modal-close:hover {
+  color: var(--od-white);
+}
+
+.share-modal-title {
+  font-family: "Kingthings", serif;
+  font-size: 2.2rem;
+  color: var(--od-yellow);
+  margin-bottom: 24px;
+}
+
+.share-modal-qr-container {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.share-modal-url-text {
+  color: var(--od-light-grey);
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+  word-break: break-all;
+  font-family: monospace;
+}
+
+.share-modal-copy-btn.copied {
+  background: var(--od-yellow) !important;
+  color: var(--od-black) !important;
+}
+
+.article-meta-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+

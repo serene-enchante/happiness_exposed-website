@@ -522,8 +522,8 @@ const renderArticle = (slug) => {
     subtitle: article.hook,
     metaTop: `${formatDate(article.date)} · ${article.theme}`,
     metaText: isAuthorPage
-      ? ""
-      : `<div class="article-meta-left"><div class="article-meta-arrows"><button class="article-hero-arrow" data-target="prev" aria-label="Previous article">&#8592;</button><button class="article-hero-arrow" data-target="next" aria-label="Next article">&#8594;</button></div></div><button class="button button-dark button-inline" type="button"><span>Print Poster</span></button>`,
+      ? `<button class="button button-dark button-inline" type="button" id="share-btn"><span>Share</span></button>`
+      : `<div class="article-meta-left"><div class="article-meta-arrows"><button class="article-hero-arrow" data-target="prev" aria-label="Previous article">&#8592;</button><button class="article-hero-arrow" data-target="next" aria-label="Next article">&#8594;</button></div></div><div class="article-meta-actions"><button class="button button-dark button-inline" type="button" id="print-poster-btn"><span>Print Poster</span></button><button class="button button-dark button-inline" type="button" id="share-btn"><span>Share</span></button></div>`,
     imageUrl: article.main_image,
     alignEnd: true,
   });
@@ -536,6 +536,13 @@ const renderArticle = (slug) => {
 
   app.appendChild(hero);
   app.appendChild(content);
+
+  const shareBtn = app.querySelector("#share-btn");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", () => {
+      showShareModal();
+    });
+  }
 
   if (!isAuthorPage) {
     const poster = document.createElement("section");
@@ -555,7 +562,7 @@ const renderArticle = (slug) => {
     `;
     app.appendChild(poster);
 
-    const printButton = app.querySelector(".button-inline");
+    const printButton = app.querySelector("#print-poster-btn");
     if (printButton) {
       printButton.addEventListener("click", () => {
         window.print();
@@ -607,6 +614,82 @@ const renderArticle = (slug) => {
   }
 
   updateHeroFold();
+};
+
+const showShareModal = () => {
+  const existing = document.querySelector(".share-modal-overlay");
+  if (existing) existing.remove();
+
+  const overlay = document.createElement("div");
+  overlay.className = "share-modal-overlay";
+  overlay.innerHTML = `
+    <div class="share-modal-card">
+      <button class="share-modal-close" aria-label="Close modal">&times;</button>
+      <h3 class="share-modal-title">Share</h3>
+      <div class="share-modal-qr-container"></div>
+      <p class="share-modal-url-text">${location.href}</p>
+      <button class="button button-dark share-modal-copy-btn"><span>Copy Link</span></button>
+    </div>
+  `;
+
+  const closeBtn = overlay.querySelector(".share-modal-close");
+  const closeModal = () => {
+    overlay.classList.remove("active");
+    setTimeout(() => overlay.remove(), 300);
+  };
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  const copyBtn = overlay.querySelector(".share-modal-copy-btn");
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(location.href).then(() => {
+      const span = copyBtn.querySelector("span");
+      const originalText = span.innerHTML;
+      span.innerHTML = "Copied!";
+      copyBtn.classList.add("copied");
+      setTimeout(() => {
+        span.innerHTML = originalText;
+        copyBtn.classList.remove("copied");
+      }, 2000);
+    });
+  });
+
+  document.body.appendChild(overlay);
+
+  const qrContainer = overlay.querySelector(".share-modal-qr-container");
+  if (typeof QRCodeStyling !== "undefined") {
+    const qr = new QRCodeStyling({
+      width: 200,
+      height: 200,
+      type: "canvas",
+      data: location.href,
+      qrOptions: {
+        errorCorrectionLevel: "H",
+      },
+      dotsOptions: {
+        color: "#ffae00",
+        type: "rounded",
+      },
+      cornersSquareOptions: {
+        type: "extra-rounded",
+        color: "#ffae00",
+      },
+      cornersDotOptions: {
+        type: "dot",
+        color: "#ffae00",
+      },
+      backgroundOptions: {
+        color: "rgba(0, 0, 0, 0)",
+      },
+    });
+    qr.append(qrContainer);
+  }
+
+  requestAnimationFrame(() => {
+    overlay.classList.add("active");
+  });
 };
 
 const renderPosterQr = (container, value) => {
