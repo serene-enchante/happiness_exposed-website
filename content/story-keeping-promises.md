@@ -4,7 +4,7 @@ header: Keeping Promises
 hook: An ode to the people who stay when the work is hard.
 date: 2024-08-04
 theme: Community
-main_image: /images/pexels-mak_-jp-107017486-9548517.webp
+main_image: /images/pexels-mak_-jp-107017486-9548517-1.webp
 ---
 ## The circle
 
