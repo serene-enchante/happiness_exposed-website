@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T08:33:11.373Z",
+  "generated_at": "2026-07-16T08:55:50.407Z",
   "settings": {
     "type": "settings",
     "site_title": "One Day",
@@ -42,21 +42,21 @@
       "slug": "story-keeping-promises",
       "title": "Keeping Promises",
       "header": "Keeping Promises",
-      "hook": "\"An ode to the people who stay when the work is hard.\"",
+      "hook": "An ode to the people who stay when the work is hard.",
       "body": "## The circle\n\nA group of friends met once a month for six years. The only rule was to show up with a story, even if the story felt unfinished.\n\n## The vow\n\nBy the fourth year, their meetings became a lifeline. They learned that keeping promises to each other was also keeping promises to themselves.\n\n## The invitation\n\nJoin the circle, even if the story is unfinished.",
       "date": "2024-08-04",
       "theme": "Community",
-      "main_image": "images/bw02.jpg"
+      "main_image": "/images/pexels-mak_-jp-107017486-9548517-1.webp"
     },
     {
       "slug": "story-after-the-show",
       "title": "After the Show",
       "header": "After the Show",
-      "hook": "\"What stays when the applause is gone.\"",
+      "hook": "Test test test meow meow meow",
       "body": "## The quiet stage\n\nThe lights fade, the audience leaves, and what remains is the echo of a promise: make something honest.\n\n## The ledger\n\nEvery artist keeps a private list of the nights that mattered. This was one of them.\n\n## The next morning\n\nThe story becomes a memory, and the memory becomes fuel.",
       "date": "2024-06-22",
       "theme": "Reflection",
-      "main_image": "images/bw03.jpg"
+      "main_image": "/images/pexels-archana-ramakrishna-221711916-13548213.webp"
     }
   ]
 }

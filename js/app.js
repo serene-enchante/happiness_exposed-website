@@ -14,6 +14,11 @@ const slugify = (value) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+const cleanImageUrl = (url) => {
+  if (!url) return "";
+  return url.startsWith("/") ? url.slice(1) : url;
+};
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   if (Number.isNaN(date.getTime())) {
@@ -112,9 +117,7 @@ const buildHeroSection = ({
   const hero = document.createElement("section");
   hero.className = `section hero-base hero-fold${alignEnd ? " hero-article" : ""}`;
   if (imageUrl) {
-    const normalizedUrl = imageUrl.startsWith("/")
-      ? imageUrl
-      : `/${imageUrl}`;
+    const normalizedUrl = cleanImageUrl(imageUrl);
     hero.style.setProperty("--hero-image", `url('${normalizedUrl}')`);
   }
   hero.innerHTML = `
@@ -171,7 +174,8 @@ const renderAbout = () => {
 const buildTile = (article, index) => {
   const template = document.getElementById("tile-template");
   const tile = template.content.firstElementChild.cloneNode(true);
-  tile.querySelector(".tile-image").style.backgroundImage = `url(${article.main_image})`;
+  const imgUrl = cleanImageUrl(article.main_image);
+  tile.querySelector(".tile-image").style.backgroundImage = `url(${imgUrl})`;
   tile.querySelector(".tile-date").textContent = formatDate(article.date);
   tile.querySelector(".tile-title").textContent = article.title;
   tile.querySelector(".tile-hook").textContent = article.hook || "";
@@ -336,8 +340,9 @@ const renderArticle = (slug) => {
   `;
   const poster = document.createElement("section");
   poster.className = "poster-print";
+  const imgUrl = cleanImageUrl(article.main_image);
   poster.innerHTML = `
-    <img class="poster-image" src="${article.main_image}" alt="${article.title}" />
+    <img class="poster-image" src="${imgUrl}" alt="${article.title}" />
     <div class="poster-content">
       <h1>${article.header || article.title}</h1>
       <div class="poster-meta">${formatDate(article.date)} · ${article.theme}</div>
