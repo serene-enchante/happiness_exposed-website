@@ -662,6 +662,10 @@ main > .section:first-child .stories-header {
   line-height: 1;
 }
 
+.button-inline::after {
+  display: none !important;
+}
+
 .button-inline svg {
   display: block;
   flex-shrink: 0;
