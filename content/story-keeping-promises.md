@@ -1,12 +1,11 @@
 ---
 title: Keeping Promises
-main_image: images/bw02.jpg
 header: Keeping Promises
-hook: "An ode to the people who stay when the work is hard."
+hook: An ode to the people who stay when the work is hard.
 date: 2024-08-04
 theme: Community
+main_image: /images/pexels-mak_-jp-107017486-9548517.webp
 ---
-
 ## The circle
 
 A group of friends met once a month for six years. The only rule was to show up with a story, even if the story felt unfinished.
