@@ -440,78 +440,98 @@ const renderArticle = (slug) => {
     return;
   }
   app.innerHTML = "";
+
+  const isAuthorPage = (slug === "about-author");
+
   const hero = buildHeroSection({
     title: article.header || article.title,
     subtitle: article.hook,
     metaTop: `${formatDate(article.date)} · ${article.theme}`,
-    metaText: `<div class="article-meta-left"><div class="article-meta-arrows"><button class="article-hero-arrow" data-target="prev" aria-label="Previous article">&#8592;</button><button class="article-hero-arrow" data-target="next" aria-label="Next article">&#8594;</button></div></div><button class="button button-dark button-inline" type="button"><span>Print Poster</span></button>`,
+    metaText: isAuthorPage
+      ? ""
+      : `<div class="article-meta-left"><div class="article-meta-arrows"><button class="article-hero-arrow" data-target="prev" aria-label="Previous article">&#8592;</button><button class="article-hero-arrow" data-target="next" aria-label="Next article">&#8594;</button></div></div><button class="button button-dark button-inline" type="button"><span>Print Poster</span></button>`,
     imageUrl: article.main_image,
     alignEnd: true,
   });
+
   const content = document.createElement("section");
   content.className = "section article-content";
   content.innerHTML = `
     <div class="article-body">${markdownToHtml(article.body)}</div>
   `;
-  const poster = document.createElement("section");
-  poster.className = "poster-print";
-  const imgUrl = cleanImageUrl(article.main_image);
-  poster.innerHTML = `
-    <img class="poster-image" src="${imgUrl}" alt="${article.title}" />
-    <div class="poster-content">
-      <h1>${article.header || article.title}</h1>
-      <div class="poster-meta">${formatDate(article.date)} · ${article.theme}</div>
-      <p class="poster-hook">${article.hook}</p>
-      <div class="poster-body">${markdownToHtml(article.body)}</div>
-      <div class="poster-qr-wrap">
-        <div class="poster-qr" aria-label="QR code for this article"></div>
-      </div>
-    </div>
-  `;
+
   app.appendChild(hero);
   app.appendChild(content);
-  app.appendChild(poster);
-  const printButton = app.querySelector(".button-inline");
-  if (printButton) {
-    printButton.addEventListener("click", () => {
-      window.print();
-    });
-  }
-  const qrTarget = `${location.origin}${location.pathname}${location.hash}`;
-  renderPosterQr(poster.querySelector(".poster-qr"), qrTarget);
-  const articleOrder = siteData.articles.filter(
-    (item) => item.slug !== "about-author"
-  );
-  const currentIndex = articleOrder.findIndex((item) => item.slug === slug);
-  const prevArticle = articleOrder[(currentIndex - 1 + articleOrder.length) % articleOrder.length];
-  const nextArticle = articleOrder[(currentIndex + 1) % articleOrder.length];
-  const arrowButtons = app.querySelectorAll(".article-hero-arrow");
-  arrowButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const target = button.dataset.target === "prev" ? prevArticle.slug : nextArticle.slug;
-      location.hash = `#/article/${target}`;
-    });
-  });
-  if (articleKeyHandler) {
-    window.removeEventListener("keydown", articleKeyHandler);
-  }
-  articleKeyHandler = (event) => {
-    if (event.defaultPrevented) return;
-    const target = event.target;
-    const isTypingTarget =
-      target &&
-      (target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable);
-    if (isTypingTarget) return;
-    if (event.key === "ArrowLeft") {
-      location.hash = `#/article/${prevArticle.slug}`;
+
+  if (!isAuthorPage) {
+    const poster = document.createElement("section");
+    poster.className = "poster-print";
+    const imgUrl = cleanImageUrl(article.main_image);
+    poster.innerHTML = `
+      <img class="poster-image" src="${imgUrl}" alt="${article.title}" />
+      <div class="poster-content">
+        <h1>${article.header || article.title}</h1>
+        <div class="poster-meta">${formatDate(article.date)} · ${article.theme}</div>
+        <p class="poster-hook">${article.hook}</p>
+        <div class="poster-body">${markdownToHtml(article.body)}</div>
+        <div class="poster-qr-wrap">
+          <div class="poster-qr" aria-label="QR code for this article"></div>
+        </div>
+      </div>
+    `;
+    app.appendChild(poster);
+
+    const printButton = app.querySelector(".button-inline");
+    if (printButton) {
+      printButton.addEventListener("click", () => {
+        window.print();
+      });
     }
-    if (event.key === "ArrowRight") {
-      location.hash = `#/article/${nextArticle.slug}`;
+
+    const qrTarget = `${location.origin}${location.pathname}${location.hash}`;
+    renderPosterQr(poster.querySelector(".poster-qr"), qrTarget);
+
+    const articleOrder = siteData.articles.filter(
+      (item) => item.slug !== "about-author"
+    );
+    const currentIndex = articleOrder.findIndex((item) => item.slug === slug);
+    const prevArticle = articleOrder[(currentIndex - 1 + articleOrder.length) % articleOrder.length];
+    const nextArticle = articleOrder[(currentIndex + 1) % articleOrder.length];
+    const arrowButtons = app.querySelectorAll(".article-hero-arrow");
+    arrowButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.target === "prev" ? prevArticle.slug : nextArticle.slug;
+        location.hash = `#/article/${target}`;
+      });
+    });
+
+    if (articleKeyHandler) {
+      window.removeEventListener("keydown", articleKeyHandler);
     }
-  };
-  window.addEventListener("keydown", articleKeyHandler);
+    articleKeyHandler = (event) => {
+      if (event.defaultPrevented) return;
+      const target = event.target;
+      const isTypingTarget =
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable);
+      if (isTypingTarget) return;
+      if (event.key === "ArrowLeft") {
+        location.hash = `#/article/${prevArticle.slug}`;
+      }
+      if (event.key === "ArrowRight") {
+        location.hash = `#/article/${nextArticle.slug}`;
+      }
+    };
+    window.addEventListener("keydown", articleKeyHandler);
+  } else {
+    if (articleKeyHandler) {
+      window.removeEventListener("keydown", articleKeyHandler);
+      articleKeyHandler = null;
+    }
+  }
+
   updateHeroFold();
 };
 
