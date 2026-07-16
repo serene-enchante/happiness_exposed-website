@@ -10,7 +10,7 @@ content:
     exclude:
       - settings.md
     format: yaml-frontmatter
-    filename: "story-{{title | slugify}}"
+    filename: "story-{{title | slugify}}.md"
     fields:
       - name: title
         label: Title
