@@ -83,14 +83,27 @@ const fetchData = async () => {
   }
   siteData = await response.json();
 
-  if (siteData.settings && siteData.settings.favicon) {
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
+  if (siteData.settings) {
+    if (siteData.settings.favicon) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+      link.href = cleanImageUrl(siteData.settings.favicon);
     }
-    link.href = cleanImageUrl(siteData.settings.favicon);
+    
+    if (siteData.settings.site_title) {
+      document.title = siteData.settings.site_title;
+    }
+
+    if (siteData.settings.logo_text) {
+      const logoEl = document.querySelector(".text-logo");
+      if (logoEl) {
+        logoEl.textContent = siteData.settings.logo_text;
+      }
+    }
   }
 };
 
