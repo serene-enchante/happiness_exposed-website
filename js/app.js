@@ -323,6 +323,10 @@ const renderAbout = () => {
 
   const image = section.querySelector(".author-image");
   if (image) {
+    image.addEventListener("click", () => {
+      location.hash = "#/about";
+    });
+
     image.addEventListener("mousemove", (e) => {
       const rect = image.getBoundingClientRect();
       const x = e.clientX - rect.left;

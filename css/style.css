@@ -1135,3 +1135,7 @@ main > .section:first-child .stories-header {
   align-items: center;
 }
 
+.about-author .author-image {
+  cursor: pointer;
+}
+
