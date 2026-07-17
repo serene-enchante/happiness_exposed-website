@@ -550,6 +550,7 @@ main > .section:first-child .stories-header {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 4.5em; /* 3 lines * 1.5 line-height */
 }
 
 .tile-grid {
