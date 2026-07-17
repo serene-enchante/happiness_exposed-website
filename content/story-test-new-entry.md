@@ -1,9 +1,8 @@
 ---
-title: Test new entry
+title: new article name
 header: title
 hook: Test test test meow meow meow
-date: 2026-07-16
+date: 2026-07-04
 theme: testing
-main_image: /images/pexels-omaralnahi-45702.webp
 ---
 test test 
